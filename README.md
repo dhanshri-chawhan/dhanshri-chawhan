@@ -13,6 +13,7 @@ I'm dedicated to building innovative solutions and continuously improving my ski
 ## 💻 Tech Stack
 
 - **Languages**: JavaScript, Python, HTML/CSS
+- **Cloud**: AWS, Azure
 - **Frameworks & Libraries**: React, Node.js
 - **Tools & Technologies**: Git, VS Code, REST APIs
 - **Databases**: SQL, MongoDB
@@ -21,44 +22,18 @@ I'm dedicated to building innovative solutions and continuously improving my ski
 
 ## 🔭 Currently Working On
 
-- Building projects to strengthen my development skills
-- Contributing to open-source communities
-- Exploring full-stack development practices
-
----
-
-## 🌱 Currently Learning
-
 - Generative AI
 - LLM Intergrations
 - Machine Learning
 - Cloud deployment
-
----
-
-## 👯 Looking to Collaborate On
-
-- Open-source projects
-- Web development initiatives
-- Educational coding projects
+- Exploring full-stack development practices
 
 ---
 
 ## 📫 How to Reach Me
 
 - **GitHub**: [@dhanshri-chawhan](https://github.com/dhanshri-chawhan)
-- **Email**: [dhanshrichawhan@gmail.com]
-- **LinkedIn**: [https://www.linkedin.com/in/dhanshri-chawhan/]
+- **Email**: [dhanshrichawhan@gmail.com](dhanshrichawhan@gmail.com)
+- **LinkedIn**: [linkedin.com/in/dhanshri-chawhan](https://www.linkedin.com/in/dhanshri-chawhan/)
 
 ---
-
-## 🎯 Goals
-
-- Create meaningful projects that solve real-world problems
-- Contribute actively to the developer community
-- Master full-stack development
-- Build a portfolio of impressive projects
-
----
-
-_Feel free to explore my repositories and don't hesitate to reach out!_ 🌟
