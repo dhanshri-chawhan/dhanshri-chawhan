@@ -61,10 +61,4 @@ I'm dedicated to building innovative solutions and continuously improving my ski
 
 ---
 
-## 📊 GitHub Stats
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=dhanshri-chawhan&show_icons=true&theme=radical)
-
----
-
 _Feel free to explore my repositories and don't hesitate to reach out!_ 🌟
