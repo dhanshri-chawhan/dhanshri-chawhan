@@ -1,11 +1,813 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&amp;family=IBM+Plex+Mono:wght@300;400;500;600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <title>Dhanshri Chawhan</title>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tonal-transition {
+        background: linear-gradient(to bottom, transparent, var(--tw-bg-opacity, 1) #1e1f28);
+      }
+      .glass-panel {
+        backdrop-filter: blur(20px);
+        background: rgba(51, 52, 62, 0.6);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      .cursor-blink {
+        display: inline-block;
+        width: 8px;
+        height: 1.2em;
+        background-color: #bbc3ff;
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 1s step-end infinite;
+      }
+      .code-line {
+        display: block;
+        min-height: 1.5rem;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      #star-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        overflow: hidden;
+      }
+      .star-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 200%;
+        pointer-events: none;
+      }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+      .twinkling-star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle var(--duration) ease-in-out infinite;
+        animation-delay: var(--delay);
+      }
+      .mesh-gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(circle at 50% 50%, rgba(61, 90, 254, 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 0% 0%, rgba(187, 195, 255, 0.03) 0%, transparent 40%),
+          radial-gradient(circle at 100% 100%, rgba(248, 172, 255, 0.03) 0%, transparent 40%);
+      }
+      #mobile-menu {
+        transition: all 0.3s ease-in-out;
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      #mobile-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .nav-link.active {
+        color: #bbc3ff;
+        border-bottom: 2px solid #bbc3ff;
+        padding-bottom: 2px;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+              "tertiary-fixed": "#ffd6ff",
+              "secondary": "#bbc3ff",
+              "inverse-primary": "#2848ee",
+              "secondary-fixed-dim": "#bbc3ff",
+              "on-primary": "#001d93",
+              "on-secondary-container": "#a9b4ff",
+              "on-secondary": "#1c2971",
+              "surface-tint": "#bbc3ff",
+              "surface-container": "#1e1f28",
+              "error": "#ffb4ab",
+              "inverse-surface": "#e2e1ef",
+              "primary-fixed-dim": "#bbc3ff",
+              "surface-variant": "#33343e",
+              "on-tertiary": "#570067",
+              "tertiary-fixed-dim": "#f8acff",
+              "on-background": "#e2e1ef",
+              "inverse-on-surface": "#2f303a",
+              "on-primary-fixed-variant": "#002ccd",
+              "on-error": "#690005",
+              "primary": "#bbc3ff",
+              "tertiary": "#f8acff",
+              "surface": "#12131c",
+              "on-tertiary-container": "#ffecfb",
+              "on-primary-fixed": "#000f5d",
+              "primary-container": "#3d5afe",
+              "on-primary-container": "#f1f0ff",
+              "surface-container-highest": "#33343e",
+              "background": "#090A0F",
+              "surface-container-lowest": "#0c0e16",
+              "secondary-container": "#37438b",
+              "on-error-container": "#ffdad6",
+              "on-surface": "#e2e1ef",
+              "surface-bright": "#383843",
+              "tertiary-container": "#ad36c3",
+              "surface-container-high": "#282933",
+              "outline": "#8e8fa2",
+              "surface-dim": "#090A0F",
+              "on-tertiary-fixed-variant": "#7b0091",
+              "secondary-fixed": "#dee0ff",
+              "on-secondary-fixed-variant": "#344088",
+              "outline-variant": "#444656",
+              "on-secondary-fixed": "#010f5c",
+              "error-container": "#93000a",
+              "on-surface-variant": "#c5c5d9",
+              "on-tertiary-fixed": "#350040",
+              "surface-container-low": "#1a1b24",
+              "primary-fixed": "#dee0ff"
+              },
+            "borderRadius": {
+              "DEFAULT": "0.125rem",
+              "lg": "0.25rem",
+              "xl": "0.5rem",
+              "full": "0.75rem"
+            },
+            "fontFamily": {
+              "headline": ["JetBrains Mono"],
+              "body": ["IBM Plex Mono"],
+              "label": ["IBM Plex Mono"]
+            }
+          }
+        }
+      }
+    </script>
 </head>
-<body>
-    
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+    <div id="star-container">
+      <div class="star-layer" id="stars-back"></div>
+      <div class="star-layer" id="stars-mid"></div>
+      <div class="star-layer" id="stars-front"></div>
+    </div>
+    <div class="mesh-gradient"></div>
+    <nav class="fixed top-0 w-full z-50 bg-[#090A0F]/60 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-indigo-500/10">
+      <div class="flex justify-between items-center px-4 md:px-6 py-4 max-w-7xl mx-auto">
+        <div class="text-lg md:text-xl font-bold tracking-tighter text-tertiary font-headline">Dhanshri Chawhan</div>
+        <div class="hidden md:flex items-center space-x-8 font-label text-xs uppercase tracking-widest">
+          <a class="nav-link text-slate-400 hover:text-indigo-300 transition-colors" href="#home">Home</a>
+          <a class="nav-link text-slate-400 hover:text-indigo-300 transition-colors" href="#about">Tech Stack</a>
+          <a class="nav-link text-slate-400 hover:text-indigo-300 transition-colors" href="#experience">Experience</a>
+          <a class="nav-link text-slate-400 hover:text-indigo-300 transition-colors" href="#contact">Contact</a>
+        </div>
+        <div class="flex items-center gap-2 md:gap-4">
+          <button id="resume-button" class="bg-secondary text-on-secondary px-4 md:px-6 py-2 rounded-full font-label text-[10px] md:text-xs uppercase tracking-widest font-bold hover:bg-secondary/80 transition-all active:scale-95 duration-150 opacity-90">
+            Resume
+          </button>
+          <button class="md:hidden text-on-background p-2" id="menu-toggle">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+      </div>
+      <div class="md:hidden absolute top-full left-0 w-full bg-[#090A0F]/95 backdrop-blur-2xl border-b border-white/10 py-8 px-6 flex flex-col items-center space-y-6 font-label text-sm uppercase tracking-[0.2em] pointer-events-none" id="mobile-menu">
+        <a class="nav-link text-slate-300 hover:text-indigo-300 transition-colors mobile-link" href="#home">Home</a>
+        <a class="nav-link text-slate-300 hover:text-indigo-300 transition-colors mobile-link" href="#about">Tech Stack</a>
+        <a class="nav-link text-slate-300 hover:text-indigo-300 transition-colors mobile-link" href="#experience">Experience</a>
+        <a class="nav-link text-slate-300 hover:text-indigo-300 transition-colors mobile-link" href="#contact">Contact</a>
+      </div>
+    </nav>
+    <main>
+      <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden reveal" id="home">
+        <div class="absolute inset-0 z-0">
+          <div class="absolute top-1/4 -right-20 w-48 md:w-96 h-48 md:h-96 bg-primary/20 blur-[80px] md:blur-[120px] rounded-full"></div>
+          <div class="absolute bottom-1/4 -left-20 w-48 md:w-96 h-48 md:h-96 bg-tertiary/10 blur-[80px] md:blur-[120px] rounded-full"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="text-center lg:text-left">
+            <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter mb-6 md:mb-8 leading-[0.9] lg:leading-none">
+              Dhanshri Chawhan.
+              <span class="text-on-surface-variant/50 text-2xl md:text-5xl block mt-4 font-bold">AI/ML Engineer</span>
+            </h1>
+            <p class="text-base md:text-xl text-on-surface-variant leading-relaxed mb-8 md:10 max-w-xl mx-auto lg:mx-0 font-body">
+              Specialized in Generative AI and LLM integration. Proven expertise in Python, AWS/Azure, and MLOps to build and scale high-performance machine learning solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 sm:gap-6">
+              <a class="bg-tertiary text-on-primary px-8 py-4 rounded-full font-label text-sm uppercase tracking-widest font-bold hover:shadow-[0_0_20px_rgba(187,195,255,0.4)] transition-all text-center opacity-80 hover:opacity-100" href="#about">
+                Explore My Work
+              </a>
+              <a class="border border-outline/20 text-on-surface px-8 py-4 rounded-full font-label text-sm uppercase tracking-widest font-bold hover:bg-white/5 transition-all text-center" href="#contact">
+                Get In Touch
+              </a>
+            </div>
+          </div>
+          <div class="relative group mt-8 lg:mt-0 max-w-lg mx-auto lg:max-w-none w-full">
+            <div class="absolute inset-0 bg-primary/5 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-1000"></div>
+            <div class="relative bg-surface-container border border-outline-variant/30 rounded-xl overflow-hidden shadow-2xl">
+              <div class="flex items-center gap-2 px-4 py-3 bg-surface-container-highest/50 border-b border-outline-variant/20">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-error/40"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-secondary/40"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-primary/40"></div>
+                </div>
+                <div class="mx-auto font-label text-[10px] uppercase tracking-widest text-on-surface-variant/60">dhanshrichawhan.ts</div>
+              </div>
+              <div class="p-4 md:p-6 font-body text-[10px] sm:text-xs md:text-sm leading-relaxed overflow-hidden h-[300px] md:h-[400px]">
+                <div class="space-y-1" id="code-container"></div>
+              </div>
+              <!-- <div class="absolute bottom-2 right-2 md:-bottom-4 md:-right-4 bg-primary-container text-on-primary-container px-3 md:px-4 py-1 md:py-2 rounded-lg font-label text-[8px] md:text-[10px] uppercase tracking-widest shadow-xl flex items-center gap-2">
+                <span class="material-symbols-outlined text-[10px] md:text-xs">terminal</span> System: Ready
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="py-16 md:py-24 relative reveal" id="about">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="text-center mb-12 md:mb-20">
+            <span class="font-label text-primary uppercase tracking-[0.2em] text-xs mb-3 block">Technical Arsenal</span>
+            <h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tight">Tech Stack</h2>
+            <div class="w-16 h-1 bg-tertiary mx-auto mt-4 rounded-full opacity-70"></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <!-- <h3 class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/40">Frontend</h3> -->
+                <div class="h-[1px] flex-1 bg-outline-variant/10"></div>
+              </div>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-primary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">code</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">Python</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Expert • 4+ Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-primary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">javascript</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">React.js</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Architect • 4 Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-primary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">merge</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">Git</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Fluent • 2 Years</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <!-- <h3 class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/40">Systems</h3> -->
+                <div class="h-[1px] flex-1 bg-outline-variant/10"></div>
+              </div>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-tertiary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">Generative AI & LLM Integration</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Advanced • 5 Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-tertiary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">psychology</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">NLP</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Senior • 4 Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-tertiary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">
+network_intelligence
+</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">Machine Learning</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Pro • 3 Years</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <!-- <h3 class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/40">Cloud</h3> -->
+                <div class="h-[1px] flex-1 bg-outline-variant/10"></div>
+              </div>
+              <div class="grid grid-cols-1 gap-4">
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-secondary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">cloud</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">AWS | Azure</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Certified • 3 Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-secondary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">layers</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">CI/CD </h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Advanced • 3 Years</p> -->
+                  </div>
+                </div>
+                <div class="group bg-surface-container-high/40 hover:bg-surface-container-high border border-outline-variant/10 rounded-xl p-4 transition-all duration-300 hover:border-secondary/30 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">database</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm font-headline">SQL/NoSQL</h4>
+                    <!-- <p class="text-[9px] uppercase tracking-widest text-on-surface-variant font-label">Fluent • 4 Years</p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-24 overflow-hidden relative reveal" id="experience">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="flex flex-col items-center mb-12 md:mb-20 text-center">
+            <span class="font-label text-primary uppercase tracking-[0.2em] text-xs mb-3 block">The Journey</span>
+            <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight">Experience</h2>
+            <div class="w-16 h-1 bg-tertiary mx-auto mt-4 rounded-full opacity-70"></div>
+          </div>
+          <div class="relative max-w-4xl mx-auto">
+            <div class="hidden sm:block absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-outline-variant/30 transform md:-translate-x-1/2"></div>
+            <div class="relative mb-12 md:mb-20 pl-8 sm:pl-12 md:pl-0">
+              <div class="flex flex-col md:flex-row items-start md:items-center">
+                <div class="flex-1 w-full md:pr-12 md:text-right order-2 md:order-1 mt-4 md:mt-0">
+                  <div class="bg-surface-container-high p-6 md:p-8 rounded-2xl border border-outline-variant/20 shadow-xl hover:border-primary/40 transition-all group">
+                    <span class="font-label text-xs text-primary uppercase tracking-widest mb-2 block">2024 — Present</span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-1 font-headline">AI ML Analyst</h3>
+                    <p class="text-tertiary text-xs md:text-sm font-label uppercase tracking-widest mb-4">Accenture Pvt. Ltd.</p>
+                    <ul class="text-on-surface-variant text-sm space-y-3 font-body">
+                      <li class="flex items-start gap-3 md:justify-end">
+                        <span class="order-2 md:order-1">Developed AI-driven risk analysis solutions and optimized prompt strategies</span>
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0 mt-0.5 order-1 md:order-2">check_circle</span>
+                      </li>
+                      <li class="flex items-start gap-3 md:justify-end">
+                        <span class="order-2 md:order-1">Leveraged Azure Function Apps, Blob Storage, and OpenAI APIs to build a high-performance backend</span>
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0 mt-0.5 order-1 md:order-2">check_circle</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="z-10 absolute left-0 sm:left-[-11px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-auto flex items-center justify-center">
+                  <div class="w-6 h-6 rounded-full bg-surface border-4 border-tertiary shadow-[0_0_20px_rgba(187,195,255,0.6)]"></div>
+                </div>
+                <div class="flex-1 hidden md:block order-3"></div>
+              </div>
+            </div>
+            <div class="relative mb-12 md:mb-20 pl-8 sm:pl-12 md:pl-0">
+              <div class="flex flex-col md:flex-row items-start md:items-center">
+                <div class="flex-1 hidden md:block order-1"></div>
+                <div class="z-10 absolute left-0 sm:left-[-11px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-auto flex items-center justify-center">
+                  <div class="w-6 h-6 rounded-full bg-surface border-4 border-secondary shadow-[0_0_20px_rgba(187,195,255,0.4)]"></div>
+                </div>
+                <div class="flex-1 w-full md:pl-12 order-2 mt-4 md:mt-0">
+                  <div class="bg-surface-container-high p-6 md:p-8 rounded-2xl border border-outline-variant/20 shadow-xl hover:border-secondary/40 transition-all group">
+                    <span class="font-label text-xs text-secondary uppercase tracking-widest mb-2 block">2022 — 2024</span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-1 font-headline">App Development Analyst</h3>
+                    <p class="text-tertiary text-xs md:text-sm font-label uppercase tracking-widest mb-4">Accenture Pvt. Ltd.</p>
+                    <ul class="text-on-surface-variant text-sm space-y-3 font-body">
+                      <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary text-lg flex-shrink-0 mt-0.5">check_circle</span>
+                        <span>Automated CI/CD pipelines via Jenkins significantly reducing release turnaround time</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary text-lg flex-shrink-0 mt-0.5">check_circle</span>
+                        <span>Managed AWS ARM instances enhancing system stability</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary text-lg flex-shrink-0 mt-0.5">check_circle</span>
+                        <span>Engineered a virtual CAN interface and cloud-based gRPC services, cutting manual setup time by 60%</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="relative mb-8 pl-8 sm:pl-12 md:pl-0">
+              <div class="flex flex-col md:flex-row items-start md:items-center">
+                <div class="flex-1 w-full md:pr-12 md:text-right order-2 md:order-1 mt-4 md:mt-0">
+                  <div class="bg-surface-container-high p-6 md:p-8 rounded-2xl border border-outline-variant/20 shadow-xl hover:border-tertiary/40 transition-all group">
+                    <span class="font-label text-xs text-tertiary uppercase tracking-widest mb-2 block">2021 — 2022</span>
+                    <h3 class="text-xl md:text-2xl font-bold mb-1 font-headline">App Development Associate</h3>
+                    <p class="text-tertiary text-xs md:text-sm font-label uppercase tracking-widest mb-4">Accenture Pvt. Ltd.</p>
+                    <ul class="text-on-surface-variant text-sm space-y-3 font-body">
+                      <li class="flex items-start gap-3 md:justify-end">
+                        <span class="order-2 md:order-1">Developed and executed 100+ automated E2E test cases, significantly reducing QA cycle times and improving device reliability.</span>
+                        <span class="material-symbols-outlined text-secondary text-lg flex-shrink-0 mt-0.5 order-1 md:order-2">check_circle</span>
+                      </li>
+                      <li class="flex items-start gap-3 md:justify-end">
+                        <span class="order-2 md:order-1">Validated REST APIs and managed critical bug reporting via JIRA to ensure seamless data flow and high-quality software releases.</span>
+                        <span class="material-symbols-outlined text-secondary text-lg flex-shrink-0 mt-0.5 order-1 md:order-2">check_circle</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="z-10 absolute left-0 sm:left-[-11px] md:left-1/2 md:-translate-x-1/2 top-0 md:top-auto flex items-center justify-center">
+                  <div class="w-6 h-6 rounded-full bg-surface border-4 border-secondary shadow-[0_0_20px_rgba(248,172,255,0.4)]"></div>
+                </div>
+                <div class="flex-1 hidden md:block order-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-24 relative reveal" id="certificates">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="flex flex-col items-center mb-12 md:mb-20 text-center">
+            <span class="font-label text-secondary uppercase tracking-[0.2em] text-xs mb-3 block">Credentials & Achievements</span>
+            <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight">Certificates</h2>
+            <div class="w-16 h-1 bg-tertiary mx-auto mt-4 rounded-full opacity-70"></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+            <!-- AI 102 Certificate -->
+            <div class="flex flex-col">
+              <h3 class="text-xl md:text-2xl font-bold font-headline mb-4 text-primary text-center">Azure AI-102</h3>
+              <div class="group relative overflow-hidden rounded-2xl border border-outline-variant/20 shadow-2xl hover:shadow-[0_0_40px_rgba(248,172,255,0.3)] transition-all duration-500 h-80 cursor-pointer" data-certificate="ai102">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img src="assets/dhanshri_ai102.jpg" alt="AI 102 Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              </div>
+            </div>
+            
+            <!-- GitHub Copilot Certificate -->
+            <div class="flex flex-col">
+              <h3 class="text-xl md:text-2xl font-bold font-headline mb-4 text-primary text-center">GitHub Copilot</h3>
+              <div class="group relative overflow-hidden rounded-2xl border border-outline-variant/20 shadow-2xl hover:shadow-[0_0_40px_rgba(187,195,255,0.3)] transition-all duration-500 h-80 cursor-pointer" data-certificate="copilot">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-tertiary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img src="assets/dhanshri_githubcopilot.jpg" alt="GitHub Copilot Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-24 relative reveal" id="contact">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="bg-surface/60 backdrop-blur-md border border-outline-variant/10 rounded-2xl p-6 md:p-12 flex flex-col gap-8 md:gap-12 relative overflow-hidden items-center text-center">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary"></div>
+            <div class="flex-1 max-w-3xl mx-auto w-full">
+              <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-4">Get In Touch</h2>
+              <!-- <p class="text-on-surface-variant text-base md:text-lg leading-relaxed mb-6 md:mb-10 font-body">
+                Available for select freelance opportunities and technical consultations. Let's build something exceptional together.
+              </p> -->
+            </div>
+            <div class="flex-1 w-full max-w-5xl">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a class="flex flex-row sm:flex-col gap-4 sm:gap-3 p-4 md:p-5 rounded-xl bg-surface-container-low border border-outline-variant/10 group transition-all hover:border-primary/40 hover:bg-surface-container-high items-center sm:items-start" href="https://mail.google.com" target="_blank">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all flex-shrink-0">
+                    <span class="material-symbols-outlined text-lg">alternate_email</span>
+                  </div>
+                  <div class="text-left">
+                    <span class="text-on-surface-variant font-label text-[8px] md:text-[9px] uppercase tracking-[0.2em] block mb-0.5 text-tertiary">Email</span>
+                    <span class="text-on-surface font-label text-[10px] md:text-xs uppercase tracking-widest group-hover:text-primary transition-colors">dhanshrichawhan@gmail.com </span>
+                  </div>
+                </a>
+                <a class="flex flex-row sm:flex-col gap-4 sm:gap-3 p-4 md:p-5 rounded-xl bg-surface-container-low border border-outline-variant/10 group transition-all hover:border-secondary/40 hover:bg-surface-container-high items-center sm:items-start" href="tel:+919518311686">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-all flex-shrink-0">
+                    <span class="material-symbols-outlined text-lg">call</span>
+                  </div>
+                  <div class="text-left">
+                    <span class="text-on-surface-variant font-label text-[8px] md:text-[9px] uppercase tracking-[0.2em] block mb-0.5 text-tertiary">Phone</span>
+                    <span class="text-on-surface font-label text-[10px] md:text-xs uppercase tracking-widest group-hover:text-secondary transition-colors">+91 9518311686</span>
+                  </div>
+                </a>
+                <a class="flex flex-row sm:flex-col gap-4 sm:gap-3 p-4 md:p-5 rounded-xl bg-surface-container-low border border-outline-variant/10 group transition-all hover:border-secondary/40 hover:bg-surface-container-high items-center sm:items-start" href="https://www.linkedin.com/in/dhanshri-chawhan/" target="_blank">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-all flex-shrink-0">
+                    <span class="material-symbols-outlined text-lg">link</span>
+                  </div>
+                  <div class="text-left">
+                    <span class="text-on-surface-variant font-label text-[8px] md:text-[9px] uppercase tracking-[0.2em] block mb-0.5 text-tertiary">LinkedIn</span>
+                    <span class="text-on-surface font-label text-[10px] md:text-xs uppercase tracking-widest group-hover:text-secondary transition-colors">linkedin.com/in/dhanshri-chawhan/</span>
+                  </div>
+                </a>
+                <a class="flex flex-row sm:flex-col gap-4 sm:gap-3 p-4 md:p-5 rounded-xl bg-surface-container-low border border-outline-variant/10 group transition-all hover:border-primary/40 hover:bg-surface-container-high items-center sm:items-start" href="https://twitter.com/dhashrichawhan" target="_blank">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all flex-shrink-0">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                  </div>
+                  <div class="text-left">
+                    <span class="text-on-surface-variant font-label text-[8px] md:text-[9px] uppercase tracking-[0.2em] block mb-0.5 text-tertiary">X.com</span>
+                    <span class="text-on-surface font-label text-[10px] md:text-xs uppercase tracking-widest group-hover:text-primary transition-colors">x.com/dhashrichawhan</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Certificate Modal -->
+    <div id="certificateModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+      <div class="relative max-w-4xl w-full">
+        <img id="modalImage" src="" alt="Certificate" class="w-full h-auto rounded-2xl shadow-2xl max-h-[90vh] object-contain">
+        <button id="closeModal" class="absolute top-4 right-4 bg-surface-container-high/90 hover:bg-surface-container-highest text-on-surface rounded-full p-2 transition-all duration-300 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+    </div>
+
+    <footer class="bg-[#090A0F] w-full py-10 px-6 border-t border-white/5">
+      <div class="flex flex-col md:flex-row justify-center items-center gap-6 max-w-7xl mx-auto">
+        <div class="font-label uppercase tracking-widest text-[9px] md:text-[10px] text-slate-500 text-center md:text-center">© 2026 Dhanshri Chawhan. Built with precision.</div>
+        <!-- <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+          <a class="font-label uppercase tracking-widest text-[9px] md:text-[10px] text-slate-500 hover:text-indigo-400 transition-colors" href="#home">Home</a>
+          <a class="font-label uppercase tracking-widest text-[9px] md:text-[10px] text-slate-500 hover:text-indigo-400 transition-colors" href="#about">About</a>
+          <a class="font-label uppercase tracking-widest text-[9px] md:text-[10px] text-slate-500 hover:text-indigo-400 transition-colors" href="#experience">Experience</a>
+        </div> -->
+      </div>
+    </footer>
+
+    <script>
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        revealElements.forEach(el => {
+          const elTop = el.getBoundingClientRect().top;
+          if (elTop < triggerBottom) {
+            el.classList.add('active');
+          }
+        });
+      };
+      window.addEventListener('scroll', revealOnScroll);
+      window.addEventListener('load', revealOnScroll);
+      const starLayers = {
+        'stars-back': { count: 150, size: 1, speed: 0.05, twinkle: false },
+        'stars-mid': { count: 80, size: 2, speed: 0.1, twinkle: true },
+        'stars-front': { count: 40, size: 3, speed: 0.2, twinkle: true }
+      };
+      function createStars() {
+        Object.entries(starLayers).forEach(([id, config]) => {
+          const container = document.getElementById(id);
+          if (!container) return;
+          for (let i = 0; i < config.count; i++) {
+            const star = document.createElement('div');
+            const x = Math.random() * 100;
+            const y = Math.random() * 200;
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${config.size}px`;
+            star.style.height = `${config.size}px`;
+            star.style.position = 'absolute';
+            star.style.background = 'white';
+            star.style.borderRadius = '50%';
+            if (config.twinkle) {
+              star.classList.add('twinkling-star');
+              star.style.setProperty('--duration', `${2 + Math.random() * 3}s`);
+              star.style.setProperty('--delay', `${Math.random() * 5}s`);
+              star.style.opacity = Math.random();
+            } else {
+              star.style.opacity = 0.3 + Math.random() * 0.4;
+            }
+            container.appendChild(star);
+          }
+        });
+      }
+      createStars();
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        Object.entries(starLayers).forEach(([id, config]) => {
+          const layer = document.getElementById(id);
+          if (layer) {
+            layer.style.transform = `translateY(-${scrolled * config.speed}px)`;
+          }
+        });
+      });
+      const codeLines = [
+        '<span class="text-primary">export const</span> <span class="text-tertiary">Profile</span> = () => {',
+        '  <span class="text-secondary">return</span> {',
+        '    name: <span class="text-primary-fixed">"Dhanshri Chawhan"</span>,',
+        '    title: <span class="text-primary-fixed">"Software Engineer"</span>,',
+        '    Year of Experience: <span class="text-primary-fixed">"4+ Years"</span>,',
+        '    Education: <span class="text-primary-fixed">"Bachelor of Engineering in Computer Science"</span>,',
+        '    expertise: [<span class="text-primary-fixed">"AI"</span>, <span class="text-primary-fixed">"ML"</span>, <span class="text-primary-fixed">"Python"</span>, <span class="text-primary-fixed">"Azure"</span>, <span class="text-primary-fixed">"GenAI"</span>],',
+        '    status: <span class="text-primary-fixed">"Building the future withh AI"</span>',
+        '  };',
+        '};'
+      ];
+      const codeContainer = document.getElementById('code-container');
+      let currentLine = 0;
+      let currentChar = 0;
+      function typeCode() {
+        if (!codeContainer) return;
+        if (currentLine >= codeLines.length) {
+          setTimeout(() => {
+            codeContainer.innerHTML = '';
+            currentLine = 0;
+            currentChar = 0;
+            typeCode();
+          }, 5000);
+          return;
+        }
+        if (currentChar === 0) {
+          const lineDiv = document.createElement('div');
+          lineDiv.className = 'code-line whitespace-pre';
+          lineDiv.id = `line-${currentLine}`;
+          codeContainer.appendChild(lineDiv);
+        }
+        const currentLineContent = codeLines[currentLine];
+        const lineElement = document.getElementById(`line-${currentLine}`);
+        if (!lineElement) return;
+        const isTag = currentLineContent[currentChar] === '<' || currentLineContent[currentChar] === '>';
+        const delay = isTag ? 1 : 30;
+        if (currentChar < currentLineContent.length) {
+          if (currentLineContent[currentChar] === '<') {
+            const tagEnd = currentLineContent.indexOf('>', currentChar);
+            currentChar = tagEnd + 1;
+          } else if (currentLineContent.substring(currentChar, currentChar + 4) === '<') {
+            currentChar += 4;
+          } else if (currentLineContent.substring(currentChar, currentChar + 4) === '>') {
+            currentChar += 4;
+          } else {
+            currentChar++;
+          }
+          lineElement.innerHTML = currentLineContent.substring(0, currentChar) + '<span class="cursor-blink"></span>';
+          setTimeout(typeCode, delay);
+        } else {
+          lineElement.innerHTML = currentLineContent;
+          currentLine++;
+          currentChar = 0;
+          setTimeout(typeCode, 150);
+        }
+      }
+      if (codeContainer) {
+        codeContainer.innerHTML = '';
+        setTimeout(typeCode, 1000);
+      }
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          e.preventDefault();
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.remove('active');
+            mobileMenu.classList.add('pointer-events-none');
+            const navHeight = 70;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      menuToggle.addEventListener('click', () => {
+        const isActive = mobileMenu.classList.toggle('active');
+        if (isActive) {
+          mobileMenu.classList.remove('pointer-events-none');
+          menuToggle.querySelector('span').innerText = 'close';
+        } else {
+          mobileMenu.classList.add('pointer-events-none');
+          menuToggle.querySelector('span').innerText = 'menu';
+        }
+      });
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('active');
+          mobileMenu.classList.add('pointer-events-none');
+          menuToggle.querySelector('span').innerText = 'menu';
+        });
+      });
+
+      // Resume open functionality
+      const resumeButton = document.getElementById('resume-button');
+      if (resumeButton) {
+        resumeButton.addEventListener('click', () => {
+          window.open('assets/Dhanshri_Chawhan_4Yrs.pdf', '_blank');
+        });
+      }
+
+      // Update active nav link based on scroll position
+      function updateActiveNav() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('a.nav-link');
+        
+        let currentSection = 'home'; // Default to home
+        
+        sections.forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const sectionHeight = section.getBoundingClientRect().height;
+          
+          // If section is in the upper half of viewport, it's the active one
+          if (sectionTop <= window.innerHeight / 2 && sectionTop + sectionHeight > 0) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+        
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', updateActiveNav);
+      window.addEventListener('load', updateActiveNav);
+
+      // Certificate Modal Functionality
+      const certificateModal = document.getElementById('certificateModal');
+      const modalImage = document.getElementById('modalImage');
+      const closeModal = document.getElementById('closeModal');
+      const certificateElements = document.querySelectorAll('[data-certificate]');
+
+      const certificateImages = {
+        'ai102': 'assets/dhanshri_ai102.jpg',
+        'copilot': 'assets/dhanshri_githubcopilot.jpg'
+      };
+
+      certificateElements.forEach(element => {
+        element.addEventListener('click', () => {
+          const certType = element.getAttribute('data-certificate');
+          const imageSrc = certificateImages[certType];
+          if (imageSrc) {
+            modalImage.src = imageSrc;
+            modalImage.alt = certType === 'ai102' ? 'AI 102 Certificate' : 'GitHub Copilot Certificate';
+            certificateModal.classList.remove('hidden');
+            certificateModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      });
+
+      closeModal.addEventListener('click', () => {
+        certificateModal.classList.add('hidden');
+        certificateModal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      });
+
+      certificateModal.addEventListener('click', (e) => {
+        if (e.target === certificateModal) {
+          certificateModal.classList.add('hidden');
+          certificateModal.classList.remove('flex');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !certificateModal.classList.contains('hidden')) {
+          certificateModal.classList.add('hidden');
+          certificateModal.classList.remove('flex');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    </script>
 </body>
 </html>
