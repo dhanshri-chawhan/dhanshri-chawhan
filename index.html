@@ -471,6 +471,7 @@ network_intelligence
             <div class="w-16 h-1 bg-tertiary mx-auto mt-4 rounded-full opacity-70"></div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
+
             <!-- AI 102 Certificate -->
             <div class="flex flex-col">
               <h3 class="text-xl md:text-2xl font-bold font-headline mb-4 text-primary text-center">Azure AI-102</h3>
@@ -488,6 +489,25 @@ network_intelligence
                 <img src="assets/dhanshri_githubcopilot.jpg" alt="GitHub Copilot Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               </div>
             </div>
+
+            <!-- Coding Ninjas Frontend Certificate -->
+            <div class="flex flex-col">
+              <h3 class="text-xl md:text-2xl font-bold font-headline mb-4 text-primary text-center">Coding Ninjas Frontend</h3>
+              <div class="group relative overflow-hidden rounded-2xl border border-outline-variant/20 shadow-2xl hover:shadow-[0_0_40px_rgba(187,195,255,0.3)] transition-all duration-500 h-80 cursor-pointer" data-certificate="frontend">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-tertiary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img src="assets/dhanshri_cn_frontend.jpg" alt="Coding Ninjas Frontend Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              </div>
+            </div>
+            
+            <!-- Coding Ninjas GenAI Certificate -->
+            <div class="flex flex-col">
+              <h3 class="text-xl md:text-2xl font-bold font-headline mb-4 text-primary text-center">Coding Ninjas GenAI</h3>
+              <div class="group relative overflow-hidden rounded-2xl border border-outline-variant/20 shadow-2xl hover:shadow-[0_0_40px_rgba(187,195,255,0.3)] transition-all duration-500 h-80 cursor-pointer" data-certificate="genai">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-tertiary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img src="assets/dhanshri_cn_genai.jpg" alt="Coding Ninjas GenAI Certificate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -769,7 +789,9 @@ network_intelligence
 
       const certificateImages = {
         'ai102': 'assets/dhanshri_ai102.jpg',
-        'copilot': 'assets/dhanshri_githubcopilot.jpg'
+        'copilot': 'assets/dhanshri_githubcopilot.jpg',
+        'frontend': 'assets/dhanshri_cn_frontend.jpg',
+        'genai': 'assets/dhanshri_cn_genai.jpg'
       };
 
       certificateElements.forEach(element => {
@@ -778,7 +800,8 @@ network_intelligence
           const imageSrc = certificateImages[certType];
           if (imageSrc) {
             modalImage.src = imageSrc;
-            modalImage.alt = certType === 'ai102' ? 'AI 102 Certificate' : 'GitHub Copilot Certificate';
+            modalImage.alt = certType === 'ai102' ? 'AI 102 Certificate' : certType === 'copilot' ? 'GitHub Copilot Certificate' : certType === 'frontend' ? 'Coding Ninjas Frontend Certificate' : 'Coding Ninjas GenAI Certificate';
+
             certificateModal.classList.remove('hidden');
             certificateModal.classList.add('flex');
             document.body.style.overflow = 'hidden';
